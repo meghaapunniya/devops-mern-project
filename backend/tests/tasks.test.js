@@ -11,6 +11,7 @@ describe('Test scenarios for TODO APIs at Backend', ()=>{
        const res = await request(app).get('/api/tasks')
        expect(typeof (res.body)).toBe("object");
        expect(res.body).toHaveProperty("tasks");
+       console.log(res.body.tasks, 'DATA SEEDED')
     })
 })
 
