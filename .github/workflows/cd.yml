@@ -21,9 +21,12 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd devops-mern-project
-            git pull origin main
-            # Use the older build method if Buildx is causing issues
-            docker-compose down
-            DOCKER_BUILDKIT=1 docker-compose up --build -d
-            # If Buildx is not working, you can try the traditional build method          
+              # Update Docker Buildx on the EC2 instance
+              mkdir -p ~/.docker/cli-plugins
+              curl -SL https://github.com/docker/buildx/releases/download/v0.17.0/buildx-v0.17.0.linux-amd64 \
+                -o ~/.docker/cli-plugins/docker-buildx
+              chmod +x ~/.docker/cli-plugins/docker-buildx
+              cd devops-mern-project
+              git pull origin main
+              docker-compose down
+              docker-compose up --build -d
