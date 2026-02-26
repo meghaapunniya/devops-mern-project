@@ -16,6 +16,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            docker buildx create --use || true
             cd devops-mern-project
             git pull origin main
             docker-compose down
